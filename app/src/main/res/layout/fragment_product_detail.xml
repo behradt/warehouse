@@ -16,52 +16,64 @@
     tools:context="com.torkian.warehouse.app.ProductDetailFragment"
         android:layout_gravity="center_vertical" />
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ProductID"
         android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
         android:layout_gravity="center_horizontal"
-        android:inputType="text" />
+        android:inputType="text"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ProductName"
         android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText2"
-        android:inputType="text" />
+        android:inputType="text"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ProductDescription"
         android:id="@+id/textView3"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText3"
         android:layout_gravity="center_horizontal"
-        android:inputType="text" />
+        android:inputType="text"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_button"
         android:id="@+id/button"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible" />
 
 </LinearLayout>
