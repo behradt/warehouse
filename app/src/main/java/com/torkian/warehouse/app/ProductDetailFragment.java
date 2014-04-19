@@ -3,6 +3,7 @@ package com.torkian.warehouse.app;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.torkian.warehouse.app.product.Product;
 import com.torkian.warehouse.app.product.WarehouseContent;
 
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class ProductDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
+    public static List<String> values = new ArrayList<String>();
 
     /**
      * The dummy content this fragment is presenting.
@@ -59,7 +63,7 @@ public class ProductDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_product_detail, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_product_detail, container, false);
 
 
         // Show the dummy content as text in a TextView.
@@ -79,7 +83,27 @@ public class ProductDetailFragment extends Fragment {
 
 
 
+                Button button = (Button) rootView.findViewById(R.id.button);
+                button.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // Do something in response to button click
+                        Product currentProduct = new Product();
+
+                        currentProduct.setId(((EditText) rootView.findViewById(R.id.editText)).getText().toString());
+                        currentProduct.setName(((EditText) rootView.findViewById(R.id.editText2)).getText().toString());
+                        currentProduct.setDis(((EditText) rootView.findViewById(R.id.editText3)).getText().toString());
+                        values.add(currentProduct.getName());
+
+                        Toast.makeText(getActivity(), "Saved"+currentProduct.toString()+values.size(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+
             }else if (mItem.content.equalsIgnoreCase("View")){
+                Toast.makeText(getActivity(), "Total Product: "+values.size(),
+                        Toast.LENGTH_LONG).show();
                 ((EditText) rootView.findViewById(R.id.editText)).setVisibility(View.INVISIBLE);
                 ((EditText) rootView.findViewById(R.id.editText2)).setVisibility(View.INVISIBLE);
                 ((EditText) rootView.findViewById(R.id.editText3)).setVisibility(View.INVISIBLE);
@@ -89,15 +113,6 @@ public class ProductDetailFragment extends Fragment {
                 ((Button)rootView.findViewById(R.id.button)).setVisibility(View.INVISIBLE);
                 ((ListView)rootView.findViewById(R.id.listView)).setVisibility(View.VISIBLE);
                 ListView listView = (ListView) rootView.findViewById(R.id.listView);
-                String[] values = new String[] { "Android List View",
-                        "Adapter implementation",
-                        "Simple List View In Android",
-                        "Create List View Android",
-                        "Android Example",
-                        "List View Source Code",
-                        "List View Array Adapter",
-                        "Android Example List View"
-                };
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                         android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
