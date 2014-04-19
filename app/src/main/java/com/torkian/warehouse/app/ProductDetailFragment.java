@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.torkian.warehouse.app.product.WarehouseContent;
@@ -56,6 +58,24 @@ public class ProductDetailFragment extends Fragment {
             if (mItem.content.equalsIgnoreCase("Exit"))
             {
                 System.exit(1);
+            }else if (mItem.content.equalsIgnoreCase("Add")){
+                ((EditText)rootView.findViewById(R.id.editText)).setVisibility(View.VISIBLE);
+                ((EditText)rootView.findViewById(R.id.editText2)).setVisibility(View.VISIBLE);
+                ((EditText)rootView.findViewById(R.id.editText3)).setVisibility(View.VISIBLE);
+                ((TextView)rootView.findViewById(R.id.textView)).setVisibility(View.VISIBLE);
+                ((TextView)rootView.findViewById(R.id.textView2)).setVisibility(View.VISIBLE);
+                ((TextView)rootView.findViewById(R.id.textView3)).setVisibility(View.VISIBLE);
+                ((Button)rootView.findViewById(R.id.button)).setVisibility(View.VISIBLE);
+
+            }else if (mItem.content.equalsIgnoreCase("View")){
+                ((EditText) rootView.findViewById(R.id.editText)).setVisibility(View.INVISIBLE);
+                ((EditText) rootView.findViewById(R.id.editText2)).setVisibility(View.INVISIBLE);
+                ((EditText) rootView.findViewById(R.id.editText3)).setVisibility(View.INVISIBLE);
+                ((TextView) rootView.findViewById(R.id.textView)).setVisibility(View.INVISIBLE);
+                ((TextView) rootView.findViewById(R.id.textView2)).setVisibility(View.INVISIBLE);
+                ((TextView) rootView.findViewById(R.id.textView3)).setVisibility(View.INVISIBLE);
+                ((Button)rootView.findViewById(R.id.button)).setVisibility(View.INVISIBLE);
+
             }
             ((TextView) rootView.findViewById(R.id.product_detail)).setText(mItem.content);
         }
