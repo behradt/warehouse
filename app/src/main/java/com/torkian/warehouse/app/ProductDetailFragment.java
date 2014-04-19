@@ -53,6 +53,10 @@ public class ProductDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
+            if (mItem.content.equalsIgnoreCase("Exit"))
+            {
+                System.exit(1);
+            }
             ((TextView) rootView.findViewById(R.id.product_detail)).setText(mItem.content);
         }
 
