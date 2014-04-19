@@ -3,5 +3,9 @@
 
     <string name="app_name">warehouse</string>
     <string name="title_product_detail">Product Detail</string>
+    <string name="add_button">Save</string>
+    <string name="ProductID">Product Id</string>
+    <string name="ProductName">Product Name</string>
+    <string name="ProductDescription">Product Description</string>
 
 </resources>

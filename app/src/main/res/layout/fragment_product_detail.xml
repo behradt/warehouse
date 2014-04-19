@@ -1,9 +1,67 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/product_detail"
     style="?android:attr/textAppearanceLarge"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="16dp"
     android:textIsSelectable="true"
-    tools:context="com.torkian.warehouse.app.ProductDetailFragment" />
+    tools:context="com.torkian.warehouse.app.ProductDetailFragment"
+        android:layout_gravity="center_vertical" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ProductID"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_gravity="center_horizontal"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ProductName"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ProductDescription"
+        android:id="@+id/textView3"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText3"
+        android:layout_gravity="center_horizontal"
+        android:inputType="text" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_button"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
