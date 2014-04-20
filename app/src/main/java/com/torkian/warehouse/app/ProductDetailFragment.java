@@ -36,7 +36,7 @@ public class ProductDetailFragment extends Fragment {
      * represents.
      */
     public int pPostion;
-    int showcorrectnumberforpossition= pPostion+1;
+    public int showcorrectnumberforpossition= 1;
     public static final String ARG_ITEM_ID = "item_id";
     public static List<Product> values = new ArrayList<Product>();
 
@@ -98,8 +98,11 @@ public class ProductDetailFragment extends Fragment {
                         currentProduct.setName(((EditText) rootView.findViewById(R.id.editText2)).getText().toString());
                         currentProduct.setDis(((EditText) rootView.findViewById(R.id.editText3)).getText().toString());
                         values.add(currentProduct);
+                        ((EditText)rootView.findViewById(R.id.editText)).getText().clear();
+                        ((EditText)rootView.findViewById(R.id.editText2)).getText().clear();
+                        ((EditText)rootView.findViewById(R.id.editText3)).getText().clear();
 
-                        Toast.makeText(getActivity(), "Saved"+currentProduct.toString()+values.size(),
+                        Toast.makeText(getActivity(), "Saved"+currentProduct.toString()+" Total items: "+ values.size(),
                                 Toast.LENGTH_LONG).show();
                     }
                 });
@@ -128,13 +131,13 @@ public class ProductDetailFragment extends Fragment {
                         switch (which){
                             case DialogInterface.BUTTON_NEGATIVE:
                                 Toast.makeText(getActivity(),
-                                        "Item " + showcorrectnumberforpossition +" is not changed", Toast.LENGTH_LONG)
+                                        "Item " + (showcorrectnumberforpossition+pPostion) +" is not changed", Toast.LENGTH_LONG)
                                         .show();
                                 break;
 
                             case DialogInterface.BUTTON_POSITIVE:
                                 Toast.makeText(getActivity(),
-                                        "Item " + showcorrectnumberforpossition+" is deleted", Toast.LENGTH_LONG)
+                                        "Item " + (showcorrectnumberforpossition+pPostion)+" is deleted", Toast.LENGTH_LONG)
                                         .show();
                                 values.remove(pPostion);
                                 adapter.notifyDataSetChanged();
