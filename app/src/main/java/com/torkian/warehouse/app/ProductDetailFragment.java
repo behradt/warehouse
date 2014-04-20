@@ -1,6 +1,8 @@
 package com.torkian.warehouse.app;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -33,6 +35,7 @@ public class ProductDetailFragment extends Fragment {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
+    public int pPostion;
     public static final String ARG_ITEM_ID = "item_id";
     public static List<Product> values = new ArrayList<Product>();
 
@@ -113,17 +116,41 @@ public class ProductDetailFragment extends Fragment {
                 ((TextView) rootView.findViewById(R.id.textView3)).setVisibility(View.INVISIBLE);
                 ((Button)rootView.findViewById(R.id.button)).setVisibility(View.INVISIBLE);
                 ((ListView)rootView.findViewById(R.id.listView)).setVisibility(View.VISIBLE);
-                ListView listView = (ListView) rootView.findViewById(R.id.listView);
-                ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(getActivity(),
+                final ListView listView = (ListView) rootView.findViewById(R.id.listView);
+                final ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(getActivity(),
                         android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
+
+                final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                Toast.makeText(getActivity(),
+                                        "Item " + pPostion+" is not changed", Toast.LENGTH_LONG)
+                                        .show();
+                                break;
+
+                            case DialogInterface.BUTTON_POSITIVE:
+                                Toast.makeText(getActivity(),
+                                        "Item " + pPostion+" is deleted", Toast.LENGTH_LONG)
+                                        .show();
+                                values.remove(pPostion);
+                                adapter.notifyDataSetChanged();
+                                break;
+                        }
+                    }
+                };
+
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
-                        Toast.makeText(getActivity(),
-                                "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                                .show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Do you want remove this Product?").setPositiveButton("Yes", dialogClickListener)
+                                .setNegativeButton("No", dialogClickListener).show();
+
+                        pPostion = position;
                     }
                 });
 
