@@ -36,6 +36,7 @@ public class ProductDetailFragment extends Fragment {
      * represents.
      */
     public int pPostion;
+    int showcorrectnumberforpossition= pPostion+1;
     public static final String ARG_ITEM_ID = "item_id";
     public static List<Product> values = new ArrayList<Product>();
 
@@ -127,13 +128,13 @@ public class ProductDetailFragment extends Fragment {
                         switch (which){
                             case DialogInterface.BUTTON_NEGATIVE:
                                 Toast.makeText(getActivity(),
-                                        "Item " + pPostion+" is not changed", Toast.LENGTH_LONG)
+                                        "Item " + showcorrectnumberforpossition +" is not changed", Toast.LENGTH_LONG)
                                         .show();
                                 break;
 
                             case DialogInterface.BUTTON_POSITIVE:
                                 Toast.makeText(getActivity(),
-                                        "Item " + pPostion+" is deleted", Toast.LENGTH_LONG)
+                                        "Item " + showcorrectnumberforpossition+" is deleted", Toast.LENGTH_LONG)
                                         .show();
                                 values.remove(pPostion);
                                 adapter.notifyDataSetChanged();
