@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +34,7 @@ public class ProductDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-    public static List<String> values = new ArrayList<String>();
+    public static List<Product> values = new ArrayList<Product>();
 
     /**
      * The dummy content this fragment is presenting.
@@ -92,7 +93,7 @@ public class ProductDetailFragment extends Fragment {
                         currentProduct.setId(((EditText) rootView.findViewById(R.id.editText)).getText().toString());
                         currentProduct.setName(((EditText) rootView.findViewById(R.id.editText2)).getText().toString());
                         currentProduct.setDis(((EditText) rootView.findViewById(R.id.editText3)).getText().toString());
-                        values.add(currentProduct.getName());
+                        values.add(currentProduct);
 
                         Toast.makeText(getActivity(), "Saved"+currentProduct.toString()+values.size(),
                                 Toast.LENGTH_LONG).show();
@@ -113,9 +114,19 @@ public class ProductDetailFragment extends Fragment {
                 ((Button)rootView.findViewById(R.id.button)).setVisibility(View.INVISIBLE);
                 ((ListView)rootView.findViewById(R.id.listView)).setVisibility(View.VISIBLE);
                 ListView listView = (ListView) rootView.findViewById(R.id.listView);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(getActivity(),
                         android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        Toast.makeText(getActivity(),
+                                "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
+
 
 
 
