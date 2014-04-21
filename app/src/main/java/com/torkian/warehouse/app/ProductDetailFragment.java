@@ -114,6 +114,7 @@ public class ProductDetailFragment extends Fragment {
                         // create intent with ACTION_IMAGE_CAPTURE action
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+
                         // start camera activity
                         startActivityForResult(intent, 1);
 
@@ -135,7 +136,10 @@ public class ProductDetailFragment extends Fragment {
                         Drawable currentImage = (((ImageView) rootView.findViewById(R.id.imageView)).getDrawable());
                         currentProduct.setImage(currentImage);
                         values.add(currentProduct);
-
+                        ((EditText)rootView.findViewById(R.id.editText)).getText().clear();
+                        ((EditText)rootView.findViewById(R.id.editText2)).getText().clear();
+                        ((EditText)rootView.findViewById(R.id.editText3)).getText().clear();
+                        ivThumbnailPhoto.setImageDrawable(null);
                         Toast.makeText(getActivity(), "Saved"+currentProduct.toString()+values.size(),
                                 Toast.LENGTH_LONG).show();
                     }
