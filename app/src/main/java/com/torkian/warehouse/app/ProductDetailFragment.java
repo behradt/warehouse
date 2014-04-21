@@ -3,7 +3,13 @@ package com.torkian.warehouse.app;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +19,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +28,13 @@ import android.widget.Toast;
 import com.torkian.warehouse.app.product.Product;
 import com.torkian.warehouse.app.product.WarehouseContent;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,10 +49,12 @@ public class ProductDetailFragment extends Fragment {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
+    static int TAKE_PICTURE = 1;
+    ImageView ivThumbnailPhoto;
+    Bitmap bitMap;
     public int pPostion;
-    public int showcorrectnumberforpossition= 1;
     public static final String ARG_ITEM_ID = "item_id";
-    public static List<Product> values = new ArrayList<Product>();
+    public static ArrayList<Product> values = new ArrayList<Product>();
 
     /**
      * The dummy content this fragment is presenting.
@@ -85,6 +101,25 @@ public class ProductDetailFragment extends Fragment {
                 ((TextView)rootView.findViewById(R.id.textView3)).setVisibility(View.VISIBLE);
                 ((Button)rootView.findViewById(R.id.button)).setVisibility(View.VISIBLE);
                 ((ListView)rootView.findViewById(R.id.listView)).setVisibility(View.INVISIBLE);
+                ((Button)rootView.findViewById(R.id.button2)).setVisibility(View.VISIBLE);
+                ((Button)rootView.findViewById(R.id.button)).setVisibility(View.VISIBLE);
+
+                Button captureButton = (Button) rootView.findViewById(R.id.button2);
+                ivThumbnailPhoto = (ImageView) rootView.findViewById(R.id.imageView);
+
+                captureButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        // create intent with ACTION_IMAGE_CAPTURE action
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                        // start camera activity
+                        startActivityForResult(intent, 1);
+
+                    }
+
+                });
 
 
 
@@ -97,12 +132,11 @@ public class ProductDetailFragment extends Fragment {
                         currentProduct.setId(((EditText) rootView.findViewById(R.id.editText)).getText().toString());
                         currentProduct.setName(((EditText) rootView.findViewById(R.id.editText2)).getText().toString());
                         currentProduct.setDis(((EditText) rootView.findViewById(R.id.editText3)).getText().toString());
+                        Drawable currentImage = (((ImageView) rootView.findViewById(R.id.imageView)).getDrawable());
+                        currentProduct.setImage(currentImage);
                         values.add(currentProduct);
-                        ((EditText)rootView.findViewById(R.id.editText)).getText().clear();
-                        ((EditText)rootView.findViewById(R.id.editText2)).getText().clear();
-                        ((EditText)rootView.findViewById(R.id.editText3)).getText().clear();
 
-                        Toast.makeText(getActivity(), "Saved"+currentProduct.toString()+" Total items: "+ values.size(),
+                        Toast.makeText(getActivity(), "Saved"+currentProduct.toString()+values.size(),
                                 Toast.LENGTH_LONG).show();
                     }
                 });
@@ -118,26 +152,29 @@ public class ProductDetailFragment extends Fragment {
                 ((TextView) rootView.findViewById(R.id.textView)).setVisibility(View.INVISIBLE);
                 ((TextView) rootView.findViewById(R.id.textView2)).setVisibility(View.INVISIBLE);
                 ((TextView) rootView.findViewById(R.id.textView3)).setVisibility(View.INVISIBLE);
+                ((ImageView) rootView.findViewById(R.id.imageView)).setVisibility(View.INVISIBLE);
+                ((Button)rootView.findViewById(R.id.button2)).setVisibility(View.INVISIBLE);
                 ((Button)rootView.findViewById(R.id.button)).setVisibility(View.INVISIBLE);
                 ((ListView)rootView.findViewById(R.id.listView)).setVisibility(View.VISIBLE);
                 final ListView listView = (ListView) rootView.findViewById(R.id.listView);
-                final ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(getActivity(),
-                        android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                //final ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(getActivity(),
+                //        android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                //listView.setAdapter(adapter);
+                final LazyAdapter adapter = new LazyAdapter(getActivity(), values);
                 listView.setAdapter(adapter);
-
                 final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case DialogInterface.BUTTON_NEGATIVE:
                                 Toast.makeText(getActivity(),
-                                        "Item " + (showcorrectnumberforpossition+pPostion) +" is not changed", Toast.LENGTH_LONG)
+                                        "Item " + pPostion+" is not changed", Toast.LENGTH_LONG)
                                         .show();
                                 break;
 
                             case DialogInterface.BUTTON_POSITIVE:
                                 Toast.makeText(getActivity(),
-                                        "Item " + (showcorrectnumberforpossition+pPostion)+" is deleted", Toast.LENGTH_LONG)
+                                        "Item " + pPostion+" is deleted", Toast.LENGTH_LONG)
                                         .show();
                                 values.remove(pPostion);
                                 adapter.notifyDataSetChanged();
@@ -160,12 +197,27 @@ public class ProductDetailFragment extends Fragment {
 
 
 
-
             }
             ((TextView) rootView.findViewById(R.id.product_detail)).setText(mItem.content);
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+        if (requestCode == TAKE_PICTURE && intent != null){
+            // get bundle
+            Bundle extras = intent.getExtras();
+
+            // get bitmap
+            // get bitmap
+            bitMap = (Bitmap) extras.get("data");
+            ivThumbnailPhoto.setImageBitmap(bitMap);
+
+
+        }
     }
 
 }

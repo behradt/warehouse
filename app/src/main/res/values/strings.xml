@@ -7,5 +7,8 @@
     <string name="ProductID">Product Id</string>
     <string name="ProductName">Product Name</string>
     <string name="ProductDescription">Product Description</string>
+    <string name="Camera">Add a Picture Of Product</string>
+    <string name="ProductImage">Product Image</string>
+    <string name="Product">Product</string>
 
 </resources>

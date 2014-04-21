@@ -1,5 +1,7 @@
 package com.torkian.warehouse.app.product;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Created by behradtorkian on 4/19/14.
  */
@@ -7,6 +9,13 @@ public class Product {
     private String id;
     private String name;
     private String dis;
+
+    public Drawable getImage() {
+        return image;
+    }
+
+    private Drawable image;
+
     public Product(){
         id = null;
         name = null;
@@ -49,5 +58,9 @@ public class Product {
                 " Name: " + name   +
                 "  Id Number:" + id +
                 ", Description:" + dis;
+    }
+
+    public void setImage(Drawable currentImage) {
+        this.image = currentImage;
     }
 }
