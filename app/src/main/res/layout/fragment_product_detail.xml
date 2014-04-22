@@ -87,11 +87,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/button2"
-            android:text="@string/Camera"
             android:layout_gravity="center_horizontal"
             android:visibility="invisible"
-            android:drawableStart="@drawable/ic_launcher"
+            android:drawableStart="@drawable/camera_photo"
             />
+        android:text="@string/Camera"
 
 
         <Button
