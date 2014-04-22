@@ -89,15 +89,19 @@
             android:id="@+id/button2"
             android:text="@string/Camera"
             android:layout_gravity="center_horizontal"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:drawableStart="@drawable/ic_launcher"
+            />
+
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_button"
             android:id="@+id/button"
             android:layout_gravity="center_horizontal"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:drawableTop="@drawable/save_picture"
+            />
     </LinearLayout>
     </ScrollView>
 </LinearLayout>
