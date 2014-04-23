@@ -91,16 +91,18 @@
             android:visibility="invisible"
             android:drawableStart="@drawable/camera_photo"
             />
-        android:text="@string/Camera"
-
+    / **
+      *  android:text="@string/Camera"
+      *  /
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button"
+            android:text="@string/add_button"
             android:layout_gravity="center_horizontal"
             android:visibility="invisible"
-            android:drawableTop="@drawable/save_picture"
+            android:drawableBottom="@drawable/save_picture"
             />
     </LinearLayout>
     </ScrollView>
